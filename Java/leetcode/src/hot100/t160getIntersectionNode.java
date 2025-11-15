@@ -1,8 +1,5 @@
 package hot100;
 
-
-import java.util.HashSet;
-
 public class t160getIntersectionNode {
     /**
      * Definition for singly-linked list.
