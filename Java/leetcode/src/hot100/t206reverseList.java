@@ -11,7 +11,7 @@ public class t206reverseList {
      *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
      * }
      */
-    static public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
         ListNode() {}
