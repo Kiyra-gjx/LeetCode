@@ -24,16 +24,16 @@ public class t19removeNthFromEnd {
     static class Solution {
         public ListNode removeNthFromEnd(ListNode head, int n) {
             ListNode dummy = new ListNode(-1, head);
-            ListNode curr = dummy;
-            Stack<ListNode> stack = new Stack<ListNode>();
-            while(curr != null) {
-                stack.push(curr);
-                curr = curr.next;
-            }
+            ListNode slow = dummy;
+            ListNode fast = head;
             for (int i = 0; i < n; i++) {
-                stack.pop();
+                fast = fast.next;
             }
-            stack.peek().next = stack.peek().next.next;
+            while(fast != null) {
+                fast = fast.next;
+                slow = slow.next;
+            }
+            slow.next = slow.next.next;
             return dummy.next;
         }
     }
