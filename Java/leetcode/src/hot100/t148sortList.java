@@ -1,7 +1,5 @@
 package hot100;
 
-import java.util.PriorityQueue;
-
 public class t148sortList {
     /**
      * Definition for singly-linked list.
@@ -25,27 +23,42 @@ public class t148sortList {
     }
     static class Solution {
         public ListNode sortList(ListNode head) {
-            return sortList(head, null);
-        }
-
-        public ListNode sortList(ListNode head, ListNode tail) {
-            if (head == null) return head;
-            if (head.next == tail) {
-                head.next = null;
-                return head;
+            if (head == null) {
+                return null;
             }
-            ListNode slow = head, fast = head;
-            while(fast != tail) {
-                slow = slow.next;
-                fast = fast.next;
-                if (fast != tail) {
-                    fast = fast.next;
+            int length = 0;
+            ListNode node = head;
+            while(node != null) {
+                length++;
+                node = node.next;
+            }
+            ListNode dummy = new ListNode(-1, head);
+            for (int len = 1; len < length; len <<= 1) {
+                ListNode prev = dummy, curr = dummy.next;
+                while(curr != null) {
+                    ListNode head1 = curr;
+                    for (int i = 1; i < len && curr.next != null; i++) {
+                        curr = curr.next;
+                    }
+                    ListNode head2 = curr.next;
+                    curr.next = null;
+                    curr = head2;
+                    for (int i = 1; i < len && curr != null && curr.next != null; i++) {
+                        curr = curr.next;
+                    }
+                    ListNode next = null;
+                    if (curr != null) {
+                        next = curr.next;
+                        curr.next = null;
+                    }
+                    prev.next = merge(head1, head2);
+                    while(prev.next != null) {
+                        prev = prev.next;
+                    }
+                    curr = next;
                 }
             }
-            ListNode mid = slow;
-            ListNode list1 = sortList(head, mid);
-            ListNode list2 = sortList(mid, tail);
-            return merge(list1, list2);
+            return dummy.next;
         }
 
         public ListNode merge(ListNode head1, ListNode head2) {
