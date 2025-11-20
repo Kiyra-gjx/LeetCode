@@ -2,6 +2,7 @@ package hot100;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class t94inorderTraversal {
 
@@ -25,17 +26,31 @@ public class t94inorderTraversal {
     }
 
     class Solution {
-        ArrayList<Integer> ans = new ArrayList<> ();
-        public List<Integer> inorderTraversal(TreeNode root) {
-            recurse(root);
-            return ans;
+
+        class Node {
+            Integer color;
+            TreeNode root;
+            Node(Integer color, TreeNode root) {this.color = color; this.root = root; }
         }
 
-        public void recurse(TreeNode root) {
-            if (root == null) return;
-            recurse(root.left);
-            ans.add(root.val);
-            recurse(root.right);
+        public List<Integer> inorderTraversal(TreeNode root) {
+            ArrayList<Integer> ans = new ArrayList<> ();
+            Stack<Node> stack = new Stack<>();
+            if (root == null) return ans;
+            stack.push(new Node(0, root));
+            while(!stack.isEmpty()) {
+                Node node = stack.pop();
+                if (node.root == null) {
+                    continue;
+                } else if (node.color == 1) {
+                    ans.add(node.root.val);
+                } else {
+                    stack.push(new Node(0, node.root.right));
+                    stack.push(new Node(1, node.root));
+                    stack.push(new Node(0, node.root.left));
+                }
+            }
+            return ans;
         }
     }
 }
