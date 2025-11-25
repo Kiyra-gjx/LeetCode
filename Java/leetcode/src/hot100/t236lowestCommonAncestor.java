@@ -20,43 +20,29 @@ public class t236lowestCommonAncestor {
     }
 
     class Solution {
-
+        TreeNode ans;
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
             if (root == null) {
                 return null;
             }
+            check(root, p, q);
+            return ans;
+        }
 
-            Map<TreeNode, TreeNode> fa = new HashMap<>();
-            Queue<TreeNode> queue = new LinkedList<>();
-            queue.offer(root);
-            // 记录每个节点的父节点
-            while(!queue.isEmpty()) {
-                TreeNode node = queue.poll();
-                // 左节点
-                if (node.left != null) {
-                    fa.put(node.left, node);
-                    queue.offer(node.left);
-                }
-                // 右节点
-                if (node.right != null) {
-                    fa.put(node.right, node);
-                    queue.offer(node.right);
-                }
+        public boolean check(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == null) {
+                return false;
             }
 
-            // 遍历 p 的父节点（包括自身）
-            Set<TreeNode> pFa = new HashSet<> ();
-            while(p != null) {
-                pFa.add(p);
-                p = fa.get(p);
+            // 递归记录左、右节点是否包含 p 和 q
+            boolean lson = check(root.left, p, q);
+            boolean rson = check(root.right, p, q);
+
+            if ((lson && rson) || ((lson || rson) && (root == p || root == q))) {
+                ans = root;
             }
 
-            // 遍历 q 的父节点，只要在 pFa 里找到，就直接返回
-            while(q != null && !pFa.contains(q)) {
-                q = fa.get(q);
-            }
-
-            return q;
+            return lson || rson || root == p || root == q;
         }
     }
 
