@@ -1,5 +1,8 @@
 package hot100;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class t105buildTree {
     /**
      * Definition for a binary tree node.
@@ -30,7 +33,12 @@ public class t105buildTree {
     }
 
     class Solution {
+        Map<Integer, Integer> inPos ;
         public TreeNode buildTree(int[] preorder, int[] inorder) {
+            inPos = new HashMap<>();
+            for (int i = 0; i < inorder.length; i++) {
+                inPos.put(inorder[i], i);
+            }
             return build(0, preorder.length - 1, preorder,
                     0, inorder.length - 1, inorder);
         }
@@ -43,10 +51,7 @@ public class t105buildTree {
             TreeNode root = new TreeNode(rootVal);
 
             // 在中序遍历中找到根节点位置
-            int inRoot = inStart;
-            while (inRoot <= inEnd && inorder[inRoot] != rootVal) {
-                inRoot++;
-            }
+            int inRoot = inPos.get(rootVal);
 
             // 左子树长度
             int leftSize = inRoot - inStart;
