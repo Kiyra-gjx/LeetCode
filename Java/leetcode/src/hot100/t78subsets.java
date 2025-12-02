@@ -13,16 +13,18 @@ public class t78subsets {
         }
 
         void dfs(List<List<Integer>> ans, List<Integer> current, int index, int[] nums) {
-            ans.add(new ArrayList<>(current));
-
-            for (int i = index; i < nums.length; i++) {
-                // 选择当前元素
-                current.add(nums[i]);
-                // 递归处理下一个元素
-                dfs(ans, current, i + 1, nums);
-                // 回溯，不选择当前元素
-                current.removeLast();
+            if (index == nums.length) {
+                ans.add(new ArrayList<>(current));  // 到达末尾，添加当前子集
+                return;
             }
+
+            // 选择当前元素
+            current.add(nums[index]);
+            dfs(ans, current, index + 1, nums);
+
+            // 不选择当前元素
+            current.removeLast();
+            dfs(ans, current, index + 1, nums);
         }
     }
 }
