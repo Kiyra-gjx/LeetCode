@@ -8,8 +8,7 @@ public class t1114Foo {
 
 class Foo {
 
-    private AtomicInteger firstJobDone = new AtomicInteger(0);
-    private AtomicInteger secondJobDone = new AtomicInteger(0);
+    private volatile int count = 0;
 
     public Foo() {
 
@@ -20,22 +19,22 @@ class Foo {
         // printFirst.run() outputs "first". Do not change or remove this line.
         printFirst.run();
 
-        firstJobDone.incrementAndGet();
+        count++;
     }
 
     public void second(Runnable printSecond) throws InterruptedException {
-        while(firstJobDone.get() != 1) {
+        while(count != 1) {
 
         }
 
         // printSecond.run() outputs "second". Do not change or remove this line.
         printSecond.run();
 
-        secondJobDone.incrementAndGet();
+        count++;
     }
 
     public void third(Runnable printThird) throws InterruptedException {
-        while(secondJobDone.get() != 1) {
+        while(count != 2) {
 
         }
 
