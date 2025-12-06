@@ -10,15 +10,12 @@ class Solution {
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (nums[left] <= nums[mid] && nums[mid] <= nums[right]) {
+            if (nums[left] <= nums[mid]) {
                 ans = Math.min(nums[left], ans);
-                right = mid - 1;
-            } else if (nums[left] > nums[mid]) {
-                ans = Math.min(nums[mid], ans);
-                right = mid - 1;
+                left = mid + 1;
             } else {
                 ans = Math.min(nums[mid], ans);
-                left = mid + 1;
+                right = mid - 1;
             }
         }
 
