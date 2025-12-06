@@ -3,7 +3,7 @@ package hot100;
 public class t153findMin {
 }
 
-class Solution {
+class t153Solution {
     public int findMin(int[] nums) {
         int left = 0, right = nums.length - 1;
         int ans = Integer.MAX_VALUE;
