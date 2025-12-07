@@ -21,13 +21,16 @@ class FooBar {
 
         for (int i = 0; i < n; i++) {
             lock.lock();
-            while(!flag) {
-                condition.await();
+            try {
+                while(!flag) {
+                    condition.await();
+                }
+                printFoo.run();
+                flag = false;
+                condition.signal();
+            } finally {
+                lock.unlock();
             }
-            printFoo.run();
-            flag = false;
-            condition.signal();
-            lock.unlock();
         }
     }
 
@@ -35,13 +38,16 @@ class FooBar {
 
         for (int i = 0; i < n; i++) {
             lock.lock();
-            while(flag) {
-                condition.await();
+            try {
+                while(flag) {
+                    condition.await();
+                }
+                printBar.run();
+                flag = true;
+                condition.signal();
+            } finally {
+                lock.unlock();
             }
-            printBar.run();
-            flag = true;
-            condition.signal();
-            lock.unlock();
         }
     }
 }
