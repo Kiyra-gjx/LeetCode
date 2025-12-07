@@ -1,7 +1,6 @@
 package multy.threads;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Objects;
 
 public class t1115FooBar {
 }
@@ -13,23 +12,19 @@ class FooBar {
         this.n = n;
     }
 
-    ReentrantLock lock = new ReentrantLock(true);
-    Condition condition = lock.newCondition();
-    volatile boolean flag = true;
+    private volatile boolean type = true;
+    private final Object foo = new Object();
 
     public void foo(Runnable printFoo) throws InterruptedException {
 
         for (int i = 0; i < n; i++) {
-            lock.lock();
-            try {
-                while(!flag) {
-                    condition.await();
+            synchronized (foo) {
+                while(!type) {
+                    foo.wait();
                 }
                 printFoo.run();
-                flag = false;
-                condition.signal();
-            } finally {
-                lock.unlock();
+                type = false;
+                foo.notify();
             }
         }
     }
@@ -37,16 +32,13 @@ class FooBar {
     public void bar(Runnable printBar) throws InterruptedException {
 
         for (int i = 0; i < n; i++) {
-            lock.lock();
-            try {
-                while(flag) {
-                    condition.await();
+            synchronized (foo) {
+                while (type) {
+                    foo.wait();
                 }
                 printBar.run();
-                flag = true;
-                condition.signal();
-            } finally {
-                lock.unlock();
+                type = true;
+                foo.notify();
             }
         }
     }
