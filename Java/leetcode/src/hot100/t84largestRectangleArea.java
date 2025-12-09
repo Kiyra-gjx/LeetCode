@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class t84largestRectangleArea {
 }
 
-class Solution {
+class t84Solution {
     public int largestRectangleArea(int[] heights) {
         Deque<Integer> stack = new LinkedList<>();
         int ans = 0;
