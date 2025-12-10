@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 public class t347topKFrequent {
 }
 
-class Solution {
+class t347Solution {
     public int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
