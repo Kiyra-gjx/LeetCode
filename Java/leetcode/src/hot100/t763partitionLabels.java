@@ -6,7 +6,7 @@ import java.util.List;
 public class t763partitionLabels {
 }
 
-class Solution {
+class t763Solution {
     public List<Integer> partitionLabels(String s) {
         List<Integer> ans = new ArrayList<>();
         int[] cnt = new int[26];
