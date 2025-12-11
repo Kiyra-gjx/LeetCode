@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class t3583specialTriplets {
 }
 
-class Solution {
+class t3583Solution {
     public int specialTriplets(int[] nums) {
         final int MOD = 1000000007;
         HashMap<Integer, Integer> allCnt = new HashMap<>();
