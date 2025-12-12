@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class t3531countCoveredBuildings {
 }
 
-class Solution {
+class t3531Solution {
     public int countCoveredBuildings(int n, int[][] buildings) {
         int[] maxRow = new int[n + 1];
         int[] minRow = new int[n + 1];
