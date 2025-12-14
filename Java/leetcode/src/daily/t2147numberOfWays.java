@@ -3,7 +3,7 @@ package daily;
 public class t2147numberOfWays {
 }
 
-class Solution {
+class t2147Solution {
     private static final int mod = 1000000007;
 
     public int numberOfWays(String corridor) {
