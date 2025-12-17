@@ -8,16 +8,35 @@ public class t32longestValidParentheses {
 
 class t32Solution {
     public int longestValidParentheses(String s) {
-        int[] dp = new int[s.length()];
+        int left = 0, right = 0;
         int ans = 0;
-        for (int i = 1; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                left++;
+            } else {
+                right++;
+            }
+            if (left == right) {
+                ans = Math.max(ans, 2 * left);
+            } else if (left < right) {
+                left = 0;
+                right = 0;
+            }
+        }
+
+        left = 0;
+        right = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
             if (s.charAt(i) == ')') {
-                if (s.charAt(i - 1) == '(') {
-                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
-                } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
-                    dp[i] = dp[i - 1] + (i - dp[i - 1] - 2 >= 0 ? dp[i - dp[i - 1] - 2] : 0) + 2;
-                }
-                ans = Math.max(ans, dp[i]);
+                left++;
+            } else {
+                right++;
+            }
+            if (left == right) {
+                ans = Math.max(ans, 2 * left);
+            } else if (left < right) {
+                left = 0;
+                right = 0;
             }
         }
 
