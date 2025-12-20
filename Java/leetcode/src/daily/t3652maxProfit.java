@@ -3,7 +3,7 @@ package daily;
 public class t3652maxProfit {
 }
 
-class Solution {
+class t3652Solution {
     public long maxProfit(int[] prices, int[] strategy, int k) {
         long[] pre = new long[prices.length];
         long[] pricesP = new long[prices.length];
