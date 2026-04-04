@@ -42,7 +42,7 @@ class t695Solution {
             return 0;
         }
 
-        grid[x][y] = 0;695
+        grid[x][y] = 0;
 
         int up = dfs(grid, x - 1, y) ;
         int right = dfs(grid, x, y + 1);
